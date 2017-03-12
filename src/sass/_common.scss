@@ -1,0 +1,22 @@
+body {
+  background: $grey;
+  min-height: 100%;
+  font-size: $font-size-desktop;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 100%;
+  font-weight: 300;
+  color: $blue;
+  @include tablet { font-size: $font-size-tablet; }
+  @include mobile { font-size: $font-size-phone; }
+ 
+  .clearfix {
+      overflow: auto;
+      zoom: 1;
+  }
+
+}
+
+// Mobile overrides
+@include mobile { 
+  
+}
