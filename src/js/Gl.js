@@ -43,7 +43,7 @@ const sharedVertex = `
 //   mod(id,${SIZE}.0)/${SIZE}.0 ,
 //   id/${SIZE}.0/${SIZE}.0
 // ) ).g)/255.;
-
+// float scale = abs(texture2D(audioSample, vec2(.5,.5))).g/255.0;
 
 float f = 0.0;
 float numVerts = 4802.0*3.0;
@@ -52,6 +52,9 @@ vec2 pixelPos2 = vec2( mod( (numVerts+position.z), 512.)/512.0, floor((numVerts+
 vec3 xyz = texture2D(animations, pixelPos.xy).xyz;
 vec3 xyz2 = texture2D(animations, pixelPos2.xy).xyz;
 transformed = mix(xyz, xyz2, uRatio);
+// transformed = mix(xyz, xyz2, scale);
+
+
 
 // transformed.x += sin(2.* uTime * (uv.x + uv.y) * .3) * .10;
 // transformed.y += sin(uTime * (uv.x + uv.y) * 1.2) * .10;
@@ -198,6 +201,7 @@ const phongFS = `
     vec4 color1 = texture2D(skinMap1, vUv.xy);
     vec4 color2 = texture2D(skinMap2, vUv.xy);
     vec4 color = mix(color1, color2, uRatio);
+
     outgoingLight.rgb += color.rgb;
 
     #include <envmap_fragment>
@@ -261,26 +265,22 @@ const phongFS = `
 
 export default class Gl {
   
-  constructor(animations, skinMap1, skinMap2, gridGeo) {
-  console.log('GO', animations, skinMap1, skinMap2, gridGeo)
+  constructor(animations, skinMap1, skinMap2, gridGeo, sound) {
 
     this.numVerts = gridGeo.faces.length;
     console.log('num verts:',this.numVerts);
 
+    this.animations = animations;
+    this.sound = sound;  
     this.gridGeo = gridGeo;  
     this.skinMap1 = skinMap1;
     this.skinMap2 = skinMap2;
     this.options = {
-        brightness: 1.3,
         blending: .8,
-        speed: .01,
-        spacing: 3.3,
     }
 
     this.clock = new THREE.Clock;
 
-    // this.sound = sound;
-    this.animations = animations;
     this.container;
     this.stats;
     this.camera;
@@ -291,7 +291,11 @@ export default class Gl {
     this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
     // this.bgColor = 0x3333cd;
-    this.bgColor = 0xfafaff;
+    // this.bgColor = 0xfafaff;
+    this.bgColor = 0x343c43;
+    // 0x9fa4ab
+    // 0x343c43
+    // 0xa5adb7
     this.fov = 75;
     
     this.scene = new THREE.Scene();
@@ -335,7 +339,7 @@ export default class Gl {
     let uniforms = THREE.UniformsUtils.clone(shaderSource.uniforms)
     uniforms.uTime = { type:'f', value:0};
     uniforms.uRatio = { type:'f', value:0};
-    // uniforms.audioSample = { type:'t', value:this.sound.texture };
+    uniforms.audioSample = { type:'t', value:this.sound.texture };
     uniforms.animations = { type: 't', value: this.animations};
 
 // let loader = new THREE.TextureLoader();
@@ -568,14 +572,19 @@ this.composer.addPass( this.ssaoPass );
     let delta = this.clock.getDelta();
     let time = performance.now() * .005;
     this.materialScene.uniforms.uTime.value = time;
-    this.materialScene.uniforms.uRatio.value = (Math.sin( time * .3 )+1.0)/2.0;
-    // this.depthMaterial.uniforms.uTime.value = time;
+    this.materialScene.uniforms.uRatio.value = Math.min(2, Math.max(0, this.sound.averageVolume  / 35));
 
-    this.animations.needsUpdate = true;
+    // this.animations.needsUpdate = true;
+
+if ( this.sound.isPlaying() ) {
+  
+}
+    // this.renderer.clear();
+    // this.renderer.render(this.scene, this.camera, this.composer.renderTarget);
+    // this.composer.render( delta );
 
     this.renderer.clear();
-    this.renderer.render(this.scene, this.camera, this.composer.renderTarget);
-    this.composer.render( delta );
+    this.renderer.render(this.scene, this.camera);
   }
 }
 
