@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -59183,15 +59183,15 @@ class AssetLoader {
     let loader = new __WEBPACK_IMPORTED_MODULE_0_three_collada_loader___default.a();
     loader.load( options.model, ( geo, materials ) => {
 
-      let geometry = geo.scene.children.filter ( (child)=> child.name == 'Key' )[0].children[0].geometry;
+      let geometry = geo.scene.children.filter ( (child)=> child.name == 'Charlie-1' )[0].children[0].geometry;
 
       let faces = geometry.faces.slice();
 
       this.geometry = geometry;
 
       this.frames = [
-        geo.scene.children.filter ( (child)=> child.name == 'Key' )[0].children[0].geometry,
-        geo.scene.children.filter ( (child)=> child.name == 'Peele' )[0].children[0].geometry
+        geo.scene.children.filter ( (child)=> child.name == 'Charlie-1' )[0].children[0].geometry,
+        geo.scene.children.filter ( (child)=> child.name == 'Charlie-2' )[0].children[0].geometry
       ];
       this.stepLoad();
 
@@ -59225,37 +59225,37 @@ class AssetLoader {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libs_dat_gui_min__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libs_dat_gui_min__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_sortFaces__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libs_TessellateModifier__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libs_TessellateModifier__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libs_TessellateModifier___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__libs_TessellateModifier__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libs_shaders_BlendShader__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libs_shaders_BlendShader__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libs_shaders_BlendShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__libs_shaders_BlendShader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libs_shaders_CopyShader__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libs_shaders_CopyShader__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libs_shaders_CopyShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__libs_shaders_CopyShader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libs_shaders_HorizontalBlurShader__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libs_shaders_HorizontalBlurShader__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libs_shaders_HorizontalBlurShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__libs_shaders_HorizontalBlurShader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__libs_shaders_VerticalBlurShader__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__libs_shaders_VerticalBlurShader__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__libs_shaders_VerticalBlurShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__libs_shaders_VerticalBlurShader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__libs_shaders_FXAAShader__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__libs_shaders_FXAAShader__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__libs_shaders_FXAAShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__libs_shaders_FXAAShader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__libs_shaders_SSAOShader__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__libs_shaders_SSAOShader__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__libs_shaders_SSAOShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__libs_shaders_SSAOShader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__libs_postprocessing_EffectComposer__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__libs_postprocessing_EffectComposer__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__libs_postprocessing_EffectComposer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__libs_postprocessing_EffectComposer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__libs_postprocessing_MaskPass__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__libs_postprocessing_MaskPass__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__libs_postprocessing_MaskPass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__libs_postprocessing_MaskPass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__libs_postprocessing_RenderPass__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__libs_postprocessing_RenderPass__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__libs_postprocessing_RenderPass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__libs_postprocessing_RenderPass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__libs_postprocessing_SavePass__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__libs_postprocessing_SavePass__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__libs_postprocessing_SavePass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__libs_postprocessing_SavePass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__libs_postprocessing_ShaderPass__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__libs_postprocessing_ShaderPass__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__libs_postprocessing_ShaderPass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__libs_postprocessing_ShaderPass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__libs_postprocessing_TexturePass__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__libs_postprocessing_TexturePass__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__libs_postprocessing_TexturePass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__libs_postprocessing_TexturePass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__libs_shaders_BokehPass__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__libs_shaders_BokehPass__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__libs_shaders_BokehPass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__libs_shaders_BokehPass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__libs_postprocessing_BokehShader__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__libs_postprocessing_BokehShader__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__libs_postprocessing_BokehShader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__libs_postprocessing_BokehShader__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_three_collada_loader__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_three_collada_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_three_collada_loader__);
@@ -59290,7 +59290,7 @@ class AssetLoader {
 
 const THREE = window.THREE = __webpack_require__(0);
 // const FBOHelper = require( 'three.fbo-helper' );
-const OrbitControls = __webpack_require__(8)(THREE)
+const OrbitControls = __webpack_require__(9)(THREE)
 const SIZE = 16;
 const SIZE_GRID = 50;
 const NUM_INSTANCES = 1//SIZE_GRID*SIZE_GRID*2; // width * height * 2 triangles per quads
@@ -59304,7 +59304,7 @@ const sharedVertex = `
 //   mod(id,${SIZE}.0)/${SIZE}.0 ,
 //   id/${SIZE}.0/${SIZE}.0
 // ) ).g)/255.;
-
+// float scale = abs(texture2D(audioSample, vec2(.5,.5))).g/255.0;
 
 float f = 0.0;
 float numVerts = 4802.0*3.0;
@@ -59313,6 +59313,9 @@ vec2 pixelPos2 = vec2( mod( (numVerts+position.z), 512.)/512.0, floor((numVerts+
 vec3 xyz = texture2D(animations, pixelPos.xy).xyz;
 vec3 xyz2 = texture2D(animations, pixelPos2.xy).xyz;
 transformed = mix(xyz, xyz2, uRatio);
+// transformed = mix(xyz, xyz2, scale);
+
+
 
 // transformed.x += sin(2.* uTime * (uv.x + uv.y) * .3) * .10;
 // transformed.y += sin(uTime * (uv.x + uv.y) * 1.2) * .10;
@@ -59459,6 +59462,7 @@ const phongFS = `
     vec4 color1 = texture2D(skinMap1, vUv.xy);
     vec4 color2 = texture2D(skinMap2, vUv.xy);
     vec4 color = mix(color1, color2, uRatio);
+
     outgoingLight.rgb += color.rgb;
 
     #include <envmap_fragment>
@@ -59522,26 +59526,22 @@ const phongFS = `
 
 class Gl {
   
-  constructor(animations, skinMap1, skinMap2, gridGeo) {
-  console.log('GO', animations, skinMap1, skinMap2, gridGeo)
+  constructor(animations, skinMap1, skinMap2, gridGeo, sound) {
 
     this.numVerts = gridGeo.faces.length;
     console.log('num verts:',this.numVerts);
 
+    this.animations = animations;
+    this.sound = sound;  
     this.gridGeo = gridGeo;  
     this.skinMap1 = skinMap1;
     this.skinMap2 = skinMap2;
     this.options = {
-        brightness: 1.3,
         blending: .8,
-        speed: .01,
-        spacing: 3.3,
     }
 
     this.clock = new THREE.Clock;
 
-    // this.sound = sound;
-    this.animations = animations;
     this.container;
     this.stats;
     this.camera;
@@ -59552,7 +59552,11 @@ class Gl {
     this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
     // this.bgColor = 0x3333cd;
-    this.bgColor = 0xfafaff;
+    // this.bgColor = 0xfafaff;
+    this.bgColor = 0x343c43;
+    // 0x9fa4ab
+    // 0x343c43
+    // 0xa5adb7
     this.fov = 75;
     
     this.scene = new THREE.Scene();
@@ -59596,7 +59600,7 @@ class Gl {
     let uniforms = THREE.UniformsUtils.clone(shaderSource.uniforms)
     uniforms.uTime = { type:'f', value:0};
     uniforms.uRatio = { type:'f', value:0};
-    // uniforms.audioSample = { type:'t', value:this.sound.texture };
+    uniforms.audioSample = { type:'t', value:this.sound.texture };
     uniforms.animations = { type: 't', value: this.animations};
 
 // let loader = new THREE.TextureLoader();
@@ -59829,14 +59833,19 @@ this.composer.addPass( this.ssaoPass );
     let delta = this.clock.getDelta();
     let time = performance.now() * .005;
     this.materialScene.uniforms.uTime.value = time;
-    this.materialScene.uniforms.uRatio.value = (Math.sin( time * .3 )+1.0)/2.0;
-    // this.depthMaterial.uniforms.uTime.value = time;
+    this.materialScene.uniforms.uRatio.value = Math.min(2, Math.max(0, this.sound.averageVolume  / 35));
 
-    this.animations.needsUpdate = true;
+    // this.animations.needsUpdate = true;
+
+if ( this.sound.isPlaying() ) {
+  
+}
+    // this.renderer.clear();
+    // this.renderer.render(this.scene, this.camera, this.composer.renderTarget);
+    // this.composer.render( delta );
 
     this.renderer.clear();
-    this.renderer.render(this.scene, this.camera, this.composer.renderTarget);
-    this.composer.render( delta );
+    this.renderer.render(this.scene, this.camera);
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Gl;
@@ -59846,6 +59855,134 @@ this.composer.addPass( this.ssaoPass );
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const SIZE = 16;
+
+class Sound {
+
+    constructor (src) {
+
+        this.fftSize = 2048//SIZE*SIZE;
+
+        this.context = null;
+        this.audioBuffer;
+        this.analyser;
+        this.javascriptNode;
+        
+        this.setupAudioNodes();
+
+        // this.fbo = this.createFBO();
+        
+        let request = new XMLHttpRequest();
+        request.open('GET', src, true);
+        request.responseType = 'arraybuffer';
+        request.onload = () => this.loadAudioData(request.response);
+        request.send();
+
+        this.frameData = new Float32Array( SIZE * SIZE * 4 );
+
+        this.texture = new THREE.DataTexture( this.frameData, SIZE, SIZE, THREE.RGBAFormat, THREE.FloatType );
+        this.texture.minFilter = THREE.NearestFilter;
+        this.texture.magFilter = THREE.NearestFilter;
+        this.texture.needsUpdate = true;
+
+        this.averageVolume = 0;
+
+    }
+
+    createAudioContext () {
+        if ('AudioContext' in window) {
+            return new AudioContext();
+        }
+    }
+
+    setupAudioNodes () {
+       
+        this.context = this.createAudioContext();
+
+        window.javascriptNode = this.context.createScriptProcessor(SIZE*SIZE, 1, 1);
+        window.javascriptNode.connect(this.context.destination);
+        window.javascriptNode.onaudioprocess = this.handleAudioStream.bind(this);
+
+        this.analyser = this.context.createAnalyser();
+        this.analyser.smoothingTimeConstant = .6;
+        this.analyser.fftSize = this.fftSize;
+
+        this.sourceNode = this.context.createBufferSource();
+        this.sourceNode.connect(this.analyser);
+        this.sourceNode.connect(this.context.destination);
+
+        this.analyser.connect(window.javascriptNode);
+
+    }
+
+    loadAudioData (buffer) {
+        if (this.context.decodeAudioData) {
+            console.log('audio ready...')
+            this.context.decodeAudioData(buffer, (b) => {
+                this.audioBuffer = b;
+                this.startOffset = this.context.currentTime;
+                this.sourceNode = this.context.createBufferSource();
+                this.sourceNode.buffer = this.audioBuffer;
+                this.sourceNode.connect(this.analyser);
+                this.sourceNode.connect(this.context.destination);
+                this.sourceNode.start(0, 0);
+                
+            });
+        }
+    }
+
+    handleAudioStream (e) {
+        if ( !this.isPlaying()  ) {
+            return;
+        }
+        
+        // this.analyser.getFloatFrequencyData(this.frameData);
+        // this.texture.needsUpdate = true;
+
+
+        let array = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyser.getByteFrequencyData(array);
+        let average = 0;
+        for(let i=0, l=array.length; i<l; i++) {
+            average += parseFloat(array[i]);
+        }
+        this.averageVolume = average/array.length;
+
+
+// console.log(this.averageVolume )
+    }
+
+    toggle () {
+        if( this.isPlaying() ) {
+            this.context.suspend()
+        } else if ( this.isSuspended() ) {
+            this.context.resume()
+        }
+    }
+
+    isPlaying (){
+        return this.context.state === 'running'
+    }
+
+    isSuspended (){
+        return this.context.state === 'suspended'
+    }
+
+    stamp () {
+        if ( this.context && this.startOffset != -1 )
+            return parseInt( (this.context.currentTime-this.startOffset) * 124 / 60 * 100); 
+        else return 0;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Sound;
+
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59922,7 +60059,7 @@ function packToTexture (faces, frames) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = function( THREE ) {
@@ -60948,7 +61085,7 @@ module.exports = function( THREE ) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -61192,7 +61329,7 @@ THREE.TessellateModifier.prototype.modify = function ( geometry ) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64873,7 +65010,7 @@ dat.dom.dom,
 dat.utils.common);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -64996,7 +65133,7 @@ THREE.BokehShader = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65179,7 +65316,7 @@ Object.assign( THREE.Pass.prototype, {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65284,7 +65421,7 @@ Object.assign( THREE.ClearMaskPass.prototype, {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65345,7 +65482,7 @@ THREE.RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65416,7 +65553,7 @@ THREE.SavePass.prototype = Object.assign( Object.create( THREE.Pass.prototype ),
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65490,7 +65627,7 @@ THREE.ShaderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65547,7 +65684,7 @@ THREE.TexturePass.prototype = Object.assign( Object.create( THREE.Pass.prototype
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65606,7 +65743,7 @@ THREE.BlendShader = {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65716,7 +65853,7 @@ THREE.BokehPass.prototype = Object.assign( Object.create( THREE.Pass.prototype )
 } );
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65770,7 +65907,7 @@ THREE.CopyShader = {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65866,7 +66003,7 @@ THREE.FXAAShader = {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -65936,7 +66073,7 @@ THREE.HorizontalBlurShader = {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -66176,7 +66313,7 @@ THREE.SSAOShader = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const THREE = __webpack_require__(0);
@@ -66246,7 +66383,7 @@ THREE.VerticalBlurShader = {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66256,10 +66393,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AssetLoader__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Gl__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_sortFaces__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_packToTexture__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Sound__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Gl__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_sortFaces__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_packToTexture__ = __webpack_require__(8);
 // main scss
+
 
 
 
@@ -66271,18 +66410,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_1_jquery___default()( document ).ready( () => {
 
+
+  let sound = new __WEBPACK_IMPORTED_MODULE_3__Sound__["a" /* default */]('./assets/charlie-chaplin.mp3');
+  // sound.toggle();
+
+function animate() {
+        requestAnimationFrame(animate);
+        let stamp = sound.stamp();
+    }
+    animate();
+
+
   let assets = new __WEBPACK_IMPORTED_MODULE_2__AssetLoader__["a" /* default */]({
-    model: 'assets/key-peele.dae',
-    // skin: 'assets/baby.png', 
-    skin1: 'assets/key.png', 
-    skin2: 'assets/peele.png', 
+    // model: 'assets/key-peele.dae',
+    model: 'assets/charlie.dae',
+    // skin1: 'assets/key.png', 
+    // skin2: 'assets/peele.png', 
+    skin1: 'assets/charlie-1.png', 
+    skin2: 'assets/charlie-2.png', 
     onComplete: (geomery, skin1, skin2, frames) => {
 
       // let faces = sortFaces( geomery );
       let faces = geomery.faces.slice();
-      let textureXYZ = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_packToTexture__["a" /* packToTexture */])(faces, frames);
+      let textureXYZ = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__utils_packToTexture__["a" /* packToTexture */])(faces, frames);
 
-      let gl = new __WEBPACK_IMPORTED_MODULE_3__Gl__["a" /* default */](textureXYZ, skin1, skin2, geomery);
+      let gl = new __WEBPACK_IMPORTED_MODULE_4__Gl__["a" /* default */](textureXYZ, skin1, skin2, geomery, sound);
     }
   });
 });
@@ -66290,4 +66442,4 @@ __WEBPACK_IMPORTED_MODULE_1_jquery___default()( document ).ready( () => {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.js.map?2b76c57acb0626fc3683-main
+//# sourceMappingURL=main.js.map?25767780aa06f01fa233-main
