@@ -5,6 +5,7 @@ const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (options) => {
 
@@ -13,8 +14,8 @@ module.exports = (options) => {
   let config = {};
   
   config.entry = {
-    main: './src/js/Main',
-    vendor: ['jquery']
+    vendor: ['jquery', 'three'],
+    main: ['./src/js/Main'],
   };
 
   config.output = {
@@ -35,7 +36,7 @@ module.exports = (options) => {
   config.plugins.push( new HtmlWebpackPlugin({
     filename: 'index.html',
     template: './src/index.html',
-    chunks: ['main', 'vendor']
+    chunks: [ 'vendor', 'main']
   }));
   // Copy Assets
   config.plugins.push( new CopyWebpackPlugin([
@@ -127,12 +128,21 @@ module.exports = (options) => {
   function runProdConfig () {
 
     config.plugins.push(
+      new Webpack.optimize.CommonsChunkPlugin('vendor')
+    );
+
+    config.plugins.push(
       new Webpack.optimize.OccurrenceOrderPlugin()
     );
+
 
     config.plugins.push(
         new Webpack.LoaderOptionsPlugin({ minimize: true, debug: false })
     );
+
+    // config.plugins.push(
+    //   new BundleAnalyzerPlugin()
+    // );
 
     // config.plugins.push(
     //   new Webpack.optimize.UglifyJsPlugin({

@@ -47,6 +47,7 @@
     "style-loader": "^0.13.2",
     "transform-runtime": "^0.0.0",
     "webpack": "^2.2.1",
+    "webpack-bundle-analyzer": "^2.3.1",
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
