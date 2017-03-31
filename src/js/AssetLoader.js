@@ -15,15 +15,15 @@ export default class AssetLoader {
     let loader = new ColladaLoader();
     loader.load( options.model, ( geo, materials ) => {
 
-      let geometry = geo.scene.children.filter ( (child)=> child.name == 'Charlie-1' )[0].children[0].geometry;
+      let geometry = geo.scene.children.filter ( (child)=> child.name == 'pose-1' )[0].children[0].geometry;
 
       let faces = geometry.faces.slice();
 
       this.geometry = geometry;
 
       this.frames = [
-        geo.scene.children.filter ( (child)=> child.name == 'Charlie-1' )[0].children[0].geometry,
-        geo.scene.children.filter ( (child)=> child.name == 'Charlie-2' )[0].children[0].geometry
+        geo.scene.children.filter ( (child)=> child.name == 'pose-1' )[0].children[0].geometry,
+        geo.scene.children.filter ( (child)=> child.name == 'pose-2' )[0].children[0].geometry
       ];
       this.stepLoad();
 

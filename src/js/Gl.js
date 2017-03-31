@@ -46,12 +46,17 @@ const sharedVertex = `
 // float scale = abs(texture2D(audioSample, vec2(.5,.5))).g/255.0;
 
 float f = 0.0;
-float numVerts = 4802.0*3.0;
+float numVerts = 3116.0*3.0;
 vec2 pixelPos = vec2( mod( (numVerts*f+position.z), 512.)/512.0, floor((numVerts*f+position.z)/512.0)/512.0);
 vec2 pixelPos2 = vec2( mod( (numVerts+position.z), 512.)/512.0, floor((numVerts+position.z)/512.0)/512.0);
 vec3 xyz = texture2D(animations, pixelPos.xy).xyz;
 vec3 xyz2 = texture2D(animations, pixelPos2.xy).xyz;
-transformed = mix(xyz, xyz2, uRatio);
+// float r = uRatio/2.0;
+float r = 1.0-cos(uRatio);
+
+if ( r < .2 ) r=0.0;
+if ( r > .8 ) r=1.0;
+transformed = mix(xyz, xyz2, r);
 // transformed = mix(xyz, xyz2, scale);
 
 
@@ -292,7 +297,8 @@ export default class Gl {
     this.windowHalfY = window.innerHeight / 2;
     // this.bgColor = 0x3333cd;
     // this.bgColor = 0xfafaff;
-    this.bgColor = 0x343c43;
+    // this.bgColor = 0x343c43;
+    this.bgColor = 0x41b1e3;
     // 0x9fa4ab
     // 0x343c43
     // 0xa5adb7
@@ -373,11 +379,16 @@ uniforms.skinMap2 = { type: 't', value: this.skinMap2 };
 
     // this.hemisphereLight = new THREE.HemisphereLight(0xffaacc);
     // this.hemisphereLight = new THREE.HemisphereLight(0x88aacc, 0, 1);
-    this.hemisphereLight = new THREE.HemisphereLight(0x112233, 0, 1);
+    this.hemisphereLight = new THREE.HemisphereLight(0x515120, 0, 1);
     this.scene.add(this.hemisphereLight);
 
-    this.spotLight = new THREE.DirectionalLight(0x4488ff, 1, 0, .075, .5, .5);
+    this.spotLight = new THREE.SpotLight( 0x515120 );
+    // this.spotLight = new THREE.DirectionalLight(0x666666, 1, 0, .075, .5, .5);
     
+    this.spotLight.position.x = -300; //this.camera.position.x+120;
+    this.spotLight.position.y = -1000; //this.camera.position.y//20;
+    this.spotLight.position.z = -500; //this.camera.position.z/2//0;
+
     this.spotLight.target.position.set(0, 0, 0);
     this.spotLight.castShadow = true;
 
@@ -392,10 +403,6 @@ uniforms.skinMap2 = { type: 't', value: this.skinMap2 };
     this.spotLight.shadow.camera.updateProjectionMatrix();
     this.scene.add(this.spotLight);
     this.spotLight.shadow.bias = -0.0001;
-    this.spotLight.position.x = 0; //this.camera.position.x+120;
-    this.spotLight.position.y = 110; //this.camera.position.y//20;
-    this.spotLight.position.z = -100; //this.camera.position.z/2//0;
-
 
 
 this.effectSave = new THREE.SavePass( new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, this.rttParams ) );
@@ -537,6 +544,7 @@ this.composer.addPass( this.ssaoPass );
     this.cubes.receiveShadow = true;
     this.cubes.position.set(0,0,0);
     this.cubes.scale.set(100,100,100)
+    this.cubes.rotation.set(2,0,3)
     this.scene.add(this.cubes);
 
     // this.depthMaterial = new THREE.ShaderMaterial({

@@ -12,23 +12,19 @@ import { packToTexture } from './utils/packToTexture';
 $( document ).ready( () => {
 
 
-  let sound = new Sound('./assets/charlie-chaplin.mp3');
+  let sound = new Sound('./assets/NoNoNoCat.mp3');
   // sound.toggle();
 
-function animate() {
-        requestAnimationFrame(animate);
-        let stamp = sound.stamp();
-    }
-    animate();
-
+  function animate() {
+    requestAnimationFrame(animate);
+    let stamp = sound.stamp();
+  }
+  animate();
 
   let assets = new AssetLoader({
-    // model: 'assets/key-peele.dae',
-    model: 'assets/charlie.dae',
-    // skin1: 'assets/key.png', 
-    // skin2: 'assets/peele.png', 
-    skin1: 'assets/charlie-1.png', 
-    skin2: 'assets/charlie-2.png', 
+    model: 'assets/giraffe.dae',
+    skin1: 'assets/giraffe.png', 
+    skin2: 'assets/giraffe.png', 
     onComplete: (geomery, skin1, skin2, frames) => {
 
       // let faces = sortFaces( geomery );
@@ -37,5 +33,11 @@ function animate() {
 
       let gl = new Gl(textureXYZ, skin1, skin2, geomery, sound);
     }
+  });
+
+  $('.speaker').click(function(event) {
+    event.preventDefault();
+    $(this).toggleClass('mute');
+    sound.toggle();
   });
 });
