@@ -27,5 +27,7 @@ Prompts to bump version number and select a bucket to push to.
 
 ### Demos
 https://mikatalk.github.io/3d-morph/
+
 https://mikatalk.github.io/3d-morph/giraffe/
+
 https://mikatalk.github.io/3d-morph/key-peele
