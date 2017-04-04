@@ -12,26 +12,18 @@ import { packToTexture } from './utils/packToTexture';
 $( document ).ready( () => {
 
 
-  let sound = new Sound('./assets/NoNoNoCat.mp3');
-  // sound.toggle();
-
-  function animate() {
-    requestAnimationFrame(animate);
-    let stamp = sound.stamp();
-  }
-  animate();
-
   let assets = new AssetLoader({
-    model: 'assets/giraffe.dae',
-    skin1: 'assets/giraffe.png', 
-    skin2: 'assets/giraffe.png', 
-    onComplete: (geomery, skin1, skin2, frames) => {
+    model: 'assets/numbers.dae',
+    // model: 'assets/giraffe.dae',
+    skin: 'assets/giraffe.png', 
+    // skin2: 'assets/giraffe.png', 
+    onComplete: (geomery, skin, frames) => {
 
       // let faces = sortFaces( geomery );
       let faces = geomery.faces.slice();
       let textureXYZ = packToTexture(faces, frames);
 
-      let gl = new Gl(textureXYZ, skin1, skin2, geomery, sound);
+      let gl = new Gl(textureXYZ, skin, geomery);
     }
   });
 

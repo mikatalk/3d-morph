@@ -45,19 +45,18 @@ const sharedVertex = `
 // ) ).g)/255.;
 // float scale = abs(texture2D(audioSample, vec2(.5,.5))).g/255.0;
 
-float f = 0.0;
-float numVerts = 3116.0*3.0;
-vec2 pixelPos = vec2( mod( (numVerts*f+position.z), 512.)/512.0, floor((numVerts*f+position.z)/512.0)/512.0);
-vec2 pixelPos2 = vec2( mod( (numVerts+position.z), 512.)/512.0, floor((numVerts+position.z)/512.0)/512.0);
+float s  = 10.0-mod(uTime*.5, 10.0);
+float r = clamp(mod(s,1.0) * 3.0 - 2.0,0.0,1.0);
+float f1 = floor(s);
+float f2 = mod(f1+1.0, 10.0);
+
+float numVerts = 92.0*3.0;
+
+vec2 pixelPos = vec2( mod( (numVerts*f1+position.z), 512.)/512.0, floor((numVerts*f1+position.z)/512.0)/512.0);
+vec2 pixelPos2 = vec2( mod( (numVerts*f2+position.z), 512.)/512.0, floor((numVerts*f2+position.z)/512.0)/512.0);
 vec3 xyz = texture2D(animations, pixelPos.xy).xyz;
 vec3 xyz2 = texture2D(animations, pixelPos2.xy).xyz;
-// float r = uRatio/2.0;
-float r = 1.0-cos(uRatio);
-
-if ( r < .2 ) r=0.0;
-if ( r > .8 ) r=1.0;
 transformed = mix(xyz, xyz2, r);
-// transformed = mix(xyz, xyz2, scale);
 
 
 
@@ -79,9 +78,8 @@ const phongVS = `
   uniform float uRatio;
   uniform sampler2D audioSample;
   uniform sampler2D animations;
-  uniform sampler2D skinMap1;
-  uniform sampler2D skinMap2;
-  
+  uniform sampler2D skinMap;
+
   varying vec2 vUv;
   // varying float vId;
   // varying float vScale;
@@ -139,8 +137,7 @@ const phongVS = `
 const phongFS = `
   #define PHONG
   
-    uniform sampler2D skinMap1;
-    uniform sampler2D skinMap2;
+    uniform sampler2D skinMap;
 
   uniform sampler2D audioSample;
   uniform sampler2D animations;
@@ -203,11 +200,12 @@ const phongFS = `
     
     vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;
 
-    vec4 color1 = texture2D(skinMap1, vUv.xy);
-    vec4 color2 = texture2D(skinMap2, vUv.xy);
-    vec4 color = mix(color1, color2, uRatio);
+    vec4 color = texture2D(skinMap, vUv.xy);
+    // vec4 color2 = texture2D(skinMap2, vUv.xy);
+    // vec4 color = mix(color1, color2, uRatio);
 
-    outgoingLight.rgb += color.rgb;
+    // outgoingLight.rgb += color.rgb;
+    outgoingLight.rgb += vec3(.8,.8,1.0);
 
     #include <envmap_fragment>
     gl_FragColor = vec4( outgoingLight, diffuseColor.a );
@@ -270,16 +268,14 @@ const phongFS = `
 
 export default class Gl {
   
-  constructor(animations, skinMap1, skinMap2, gridGeo, sound) {
+  constructor(animations, skinMap, gridGeo) {
 
     this.numVerts = gridGeo.faces.length;
     console.log('num verts:',this.numVerts);
 
     this.animations = animations;
-    this.sound = sound;  
     this.gridGeo = gridGeo;  
-    this.skinMap1 = skinMap1;
-    this.skinMap2 = skinMap2;
+    this.skinMap = skinMap;
     this.options = {
         blending: .8,
     }
@@ -295,10 +291,10 @@ export default class Gl {
     this.mouseY = 0;
     this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
-    // this.bgColor = 0x3333cd;
+    this.bgColor = 0x111122;
     // this.bgColor = 0xfafaff;
     // this.bgColor = 0x343c43;
-    this.bgColor = 0x41b1e3;
+    // this.bgColor = 0x41b1e3;
     // 0x9fa4ab
     // 0x343c43
     // 0xa5adb7
@@ -345,16 +341,11 @@ export default class Gl {
     let uniforms = THREE.UniformsUtils.clone(shaderSource.uniforms)
     uniforms.uTime = { type:'f', value:0};
     uniforms.uRatio = { type:'f', value:0};
-    uniforms.audioSample = { type:'t', value:this.sound.texture };
+    uniforms.audioSample = { type:'t', value: null };
+    // uniforms.audioSample = { type:'t', value: this.sound.texture };
     uniforms.animations = { type: 't', value: this.animations};
 
-// let loader = new THREE.TextureLoader();
-// // loader.load('assets/images/baby.png').texture
-// uniforms.map1 = { type: 't', value: this.skinMap1 };
-// uniforms.map = { type: 't', value: this.skinMap1 };
-uniforms.skinMap1 = { type: 't', value: this.skinMap1 };
-uniforms.skinMap2 = { type: 't', value: this.skinMap2 };
-// // uniforms.map = loader.load('assets/images/baby.png');
+uniforms.skinMap = { type: 't', value: this.skinMap };
 
 // uniforms.skinMap = this.skinMap;
 
@@ -368,7 +359,8 @@ uniforms.skinMap2 = { type: 't', value: this.skinMap2 };
       transparent: false,
       side: THREE.DoubleSide,
       transparent: !false,
-      // wireframe: true,
+      wireframe: true,
+      wireframeLinewidth: 4,
       lights: true,
       fog: true,
       skinning: false,
@@ -453,28 +445,28 @@ this.composer.addPass( this.ssaoPass );
 // this.composer.addPass( this.effectBrightness );
 
 
-// this.gui = new dat.dat.GUI();
-// this.effectController  = {
-//           // focus:    1.0,
-//           // aperture: 0.025,
-//           // maxblur:  1.0
-//           numInstances: NUM_INSTANCES
-//         };
+this.gui = new dat.dat.GUI();
+this.effectController  = {
+          // focus:    1.0,
+          // aperture: 0.025,
+          // maxblur:  1.0
+          numInstances: NUM_INSTANCES
+        };
 
-// // this.matChanger = ( ) => {
-// //     this.geometry.maxInstancedCount = this.effectController.numInstances;
-//           // this.bokehPass.uniforms[ "focus" ].value = this.effectController.focus;
-//           // this.bokehPass.uniforms[ "aperture" ].value = this.effectController.aperture;
-//           // this.bokehPass.uniforms[ "maxblur" ].value = this.effectController.maxblur;
-//         // };
-// // this.gui.add( this.effectController, "focus", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
-// // this.gui.add( this.effectController, "aperture", 0.001, 0.2, 0.001 ).onChange( this.matChanger );
-// // this.gui.add( this.effectController, "maxblur", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
-// // this.gui.add( this.effectController, 'numInstances', 0.0, NUM_INSTANCES, 1 ).onChange( ( ) => {
-// this.gui.add( this.effectController, 'numInstances', 0.0, 500, 1 ).onChange( ( ) => {
+// this.matChanger = ( ) => {
 //     this.geometry.maxInstancedCount = this.effectController.numInstances;
-// } );
-// this.gui.close();
+          // this.bokehPass.uniforms[ "focus" ].value = this.effectController.focus;
+          // this.bokehPass.uniforms[ "aperture" ].value = this.effectController.aperture;
+          // this.bokehPass.uniforms[ "maxblur" ].value = this.effectController.maxblur;
+        // };
+// this.gui.add( this.effectController, "focus", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
+// this.gui.add( this.effectController, "aperture", 0.001, 0.2, 0.001 ).onChange( this.matChanger );
+// this.gui.add( this.effectController, "maxblur", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
+// this.gui.add( this.effectController, 'numInstances', 0.0, NUM_INSTANCES, 1 ).onChange( ( ) => {
+this.gui.add( this.effectController, 'numInstances', 0, 100, 1 ).onChange( ( ) => {
+    this.geometry.maxInstancedCount = this.effectController.numInstances;
+} );
+this.gui.close();
 
 
 
@@ -580,13 +572,11 @@ this.composer.addPass( this.ssaoPass );
     let delta = this.clock.getDelta();
     let time = performance.now() * .005;
     this.materialScene.uniforms.uTime.value = time;
-    this.materialScene.uniforms.uRatio.value = Math.min(2, Math.max(0, this.sound.averageVolume  / 35));
+    // this.materialScene.uniforms.uRatio.value = Math.min(2, Math.max(0, this.sound.averageVolume  / 35));
 
     // this.animations.needsUpdate = true;
 
-if ( this.sound.isPlaying() ) {
-  
-}
+
     // this.renderer.clear();
     // this.renderer.render(this.scene, this.camera, this.composer.renderTarget);
     // this.composer.render( delta );
