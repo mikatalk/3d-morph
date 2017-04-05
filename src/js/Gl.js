@@ -73,7 +73,8 @@ const phongVS = `
   // varying vec4 vColor;
 
   // attribute vec4 offset;
-  
+  varying vec3 vPos;
+
   uniform float uTime;
   uniform float uRatio;
   uniform sampler2D audioSample;
@@ -131,6 +132,8 @@ const phongVS = `
     #include <shadowmap_vertex>
     #include <fog_vertex>
 
+vPos.xyz = transformed.xyz;
+
   }
 `;
 
@@ -138,6 +141,7 @@ const phongFS = `
   #define PHONG
   
     uniform sampler2D skinMap;
+varying vec3 vPos;
 
   uniform sampler2D audioSample;
   uniform sampler2D animations;
@@ -183,6 +187,17 @@ const phongFS = `
   void main() {
     #include <clipping_planes_fragment>
     vec4 diffuseColor = vec4( diffuse, opacity );
+
+
+//float i = ( sin(uTime)+1.0 )/2.0 * 6.0 + 30.0;
+float i = 1.6;
+float r = length(smoothstep(.03, .02, 
+  mod(vPos.xyz+vec3( sin(uTime*.25), sin(uTime*.20), sin(uTime*.30) ), i) / i));
+  // mod(vPos.xyz+vec3(uTime*.20, uTime*.20, uTime*.20), i) / i));
+diffuseColor.rgba *= vec4(r);
+
+
+
     ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );
     vec3 totalEmissiveRadiance = emissive;
     #include <logdepthbuf_fragment>
@@ -213,7 +228,8 @@ const phongFS = `
     #include <tonemapping_fragment>
     #include <encodings_fragment>
     #include <fog_fragment>
-    gl_FragColor.a = color.a;
+    // gl_FragColor.a = color.a;
+    gl_FragColor.a = r;
 
   }
 `;
@@ -319,6 +335,7 @@ export default class Gl {
     });
     this.renderer.setClearColor(this.bgColor);
     // this.renderer.setClearColor(0x000000);
+    // this.renderer.setPixelRatio(4);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.autoClear = false;
@@ -358,14 +375,15 @@ uniforms.skinMap = { type: 't', value: this.skinMap };
       shading: THREE.FlatShading,
       transparent: false,
       side: THREE.DoubleSide,
-      transparent: !false,
-      wireframe: true,
-      wireframeLinewidth: 4,
+      transparent: true,
+      alphaTest: .01,
+      // wireframe: true,
+      // wireframeLinewidth: 4,
       lights: true,
       fog: true,
       skinning: false,
-      //depthTest: true,
-      //depthWrite: true
+      depthTest: true,
+      depthWrite: true
       // map: loader.load('assets/images/baby.png')
     });
 
