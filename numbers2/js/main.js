@@ -7212,28 +7212,28 @@ this.composer.addPass( this.ssaoPass );
 // this.composer.addPass( this.effectBrightness );
 
 
-this.gui = new __WEBPACK_IMPORTED_MODULE_1__libs_dat_gui_min__["a" /* dat */].GUI();
-this.effectController  = {
-          // focus:    1.0,
-          // aperture: 0.025,
-          // maxblur:  1.0
-          numInstances: NUM_INSTANCES
-        };
+// this.gui = new dat.dat.GUI();
+// this.effectController  = {
+//           // focus:    1.0,
+//           // aperture: 0.025,
+//           // maxblur:  1.0
+//           numInstances: NUM_INSTANCES
+//         };
 
-// this.matChanger = ( ) => {
+// // this.matChanger = ( ) => {
+// //     this.geometry.maxInstancedCount = this.effectController.numInstances;
+//           // this.bokehPass.uniforms[ "focus" ].value = this.effectController.focus;
+//           // this.bokehPass.uniforms[ "aperture" ].value = this.effectController.aperture;
+//           // this.bokehPass.uniforms[ "maxblur" ].value = this.effectController.maxblur;
+//         // };
+// // this.gui.add( this.effectController, "focus", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
+// // this.gui.add( this.effectController, "aperture", 0.001, 0.2, 0.001 ).onChange( this.matChanger );
+// // this.gui.add( this.effectController, "maxblur", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
+// // this.gui.add( this.effectController, 'numInstances', 0.0, NUM_INSTANCES, 1 ).onChange( ( ) => {
+// this.gui.add( this.effectController, 'numInstances', 0, 100, 1 ).onChange( ( ) => {
 //     this.geometry.maxInstancedCount = this.effectController.numInstances;
-          // this.bokehPass.uniforms[ "focus" ].value = this.effectController.focus;
-          // this.bokehPass.uniforms[ "aperture" ].value = this.effectController.aperture;
-          // this.bokehPass.uniforms[ "maxblur" ].value = this.effectController.maxblur;
-        // };
-// this.gui.add( this.effectController, "focus", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
-// this.gui.add( this.effectController, "aperture", 0.001, 0.2, 0.001 ).onChange( this.matChanger );
-// this.gui.add( this.effectController, "maxblur", 0.0, 3.0, 0.025 ).onChange( this.matChanger );
-// this.gui.add( this.effectController, 'numInstances', 0.0, NUM_INSTANCES, 1 ).onChange( ( ) => {
-this.gui.add( this.effectController, 'numInstances', 0, 100, 1 ).onChange( ( ) => {
-    this.geometry.maxInstancedCount = this.effectController.numInstances;
-} );
-this.gui.close();
+// } );
+// this.gui.close();
 
 
 
@@ -7749,7 +7749,7 @@ THREE.TessellateModifier.prototype.modify = function ( geometry ) {
 
 /** @namespace */
 const dat = {};
-/* harmony export (immutable) */ __webpack_exports__["a"] = dat;
+/* unused harmony export dat */
 
 
 /** @namespace */
@@ -12869,4 +12869,4 @@ module.exports = __webpack_require__(4);
 
 /***/ })
 ],[27]);
-//# sourceMappingURL=main.js.map?95a935c24ece8faf5917-main
+//# sourceMappingURL=main.js.map?f1cec3cba18480c3809f-main
